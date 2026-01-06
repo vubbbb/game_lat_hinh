@@ -8,7 +8,7 @@ import Decorations from "@/components/decorations"
 export default function Home() {
   const [score, setScore] = useState(0)
   const [moves, setMoves] = useState(0)
-  const [totalMoves] = useState(10)
+  const [totalMoves] = useState(30)
   const [gameWon, setGameWon] = useState(false)
   const [gameOver, setGameOver] = useState(false)
 
