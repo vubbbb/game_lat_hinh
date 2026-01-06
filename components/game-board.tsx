@@ -7,7 +7,9 @@ interface GameBoardProps {
   onMatch: () => void
   onMove: () => void
   onGameWon: () => void
+  onGameOver: () => void
   totalMoves: number
+  currentMoves: number
 }
 
 // Each pair has the same content, allowing proper memory game matching
@@ -26,7 +28,7 @@ const cardPairs = [
   { id: 12, content: "🎵" },
 ]
 
-export default function GameBoard({ onMatch, onMove, onGameWon, totalMoves }: GameBoardProps) {
+export default function GameBoard({ onMatch, onMove, onGameWon, onGameOver, totalMoves, currentMoves }: GameBoardProps) {
   const [cards] = useState(cardPairs)
   const [flipped, setFlipped] = useState<number[]>([])
   const [matched, setMatched] = useState<number[]>([])
@@ -37,6 +39,12 @@ export default function GameBoard({ onMatch, onMove, onGameWon, totalMoves }: Ga
       setTimeout(() => onGameWon(), 500)
     }
   }, [matched, cards.length, onGameWon])
+
+  useEffect(() => {
+    if (currentMoves >= totalMoves && matched.length < cards.length) {
+      setTimeout(() => onGameOver(), 500)
+    }
+  }, [currentMoves, totalMoves, matched.length, cards.length, onGameOver])
 
   useEffect(() => {
     if (flipped.length === 2) {
