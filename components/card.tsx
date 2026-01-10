@@ -1,5 +1,7 @@
 "use client"
 
+import Image from "next/image"
+
 interface CardProps {
   isFlipped: boolean
   isMatched: boolean
@@ -36,7 +38,15 @@ export default function Card({ isFlipped, isMatched, content, onClick }: CardPro
           }`}
           style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
         >
-          <div className="text-6xl">{content}</div>
+          <div className="w-full h-full p-2 flex items-center justify-center">
+            <Image
+              src={content}
+              alt="Card image"
+              width={80}
+              height={80}
+              className="object-contain"
+            />
+          </div>
         </div>
       </div>
     </button>
