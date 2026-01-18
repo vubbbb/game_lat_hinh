@@ -1,54 +1,68 @@
-"use client"
+"use client";
 
-import Image from "next/image"
+import Image from "next/image";
 
 interface CardProps {
-  isFlipped: boolean
-  isMatched: boolean
-  content: string
-  onClick: () => void
+  isFlipped: boolean;
+  isMatched: boolean;
+  content: string;
+  onClick: () => void;
 }
 
-export default function Card({ isFlipped, isMatched, content, onClick }: CardProps) {
+export default function Card({
+  isFlipped,
+  isMatched,
+  content,
+  onClick,
+}: CardProps) {
   return (
-    <button onClick={onClick} disabled={isMatched} className="perspective h-32 cursor-pointer disabled:cursor-default">
+    <button
+      onClick={onClick}
+      disabled={isMatched}
+      className="perspective h-48 cursor-pointer disabled:cursor-default"
+    >
       <div
         className={`relative w-full h-full transition-transform duration-500 transform-gpu ${
           isFlipped || isMatched ? "[transform:rotateY(180deg)]" : ""
         }`}
         style={{
           transformStyle: "preserve-3d",
-          transform: isFlipped || isMatched ? "rotateY(180deg)" : "rotateY(0deg)",
+          transform:
+            isFlipped || isMatched ? "rotateY(180deg)" : "rotateY(0deg)",
         }}
       >
         {/* Front of card */}
         <div
-          className="absolute w-full h-full bg-gradient-to-br from-blue-400 to-blue-500 rounded-xl flex items-center justify-center border-4 border-blue-300 shadow-lg cursor-pointer hover:shadow-xl hover:from-blue-500 hover:to-blue-600 transition-all"
+          className="absolute w-full h-full rounded-20  cursor-pointer transition-all overflow-hidden"
           style={{ backfaceVisibility: "hidden" }}
         >
-          <div className="text-5xl font-bold text-white">?</div>
+          <Image
+            src="/assets/Cell-images/up1.png"
+            alt="Card Back"
+            className="object-cover"
+            objectFit="contain"
+            width={180}
+            height={180}
+          />
         </div>
 
         {/* Back of card */}
         <div
-          className={`absolute w-full h-full rounded-xl flex items-center justify-center border-4 border-white shadow-lg transition-all ${
-            isMatched
-              ? "bg-gradient-to-br from-yellow-300 to-yellow-200 opacity-75"
-              : "bg-gradient-to-br from-sky-300 to-sky-200"
+          className={`absolute w-full h-full rounded-20 transition-all overflow-hidden ${
+            isMatched ? "opacity-75" : ""
           }`}
           style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
         >
-          <div className="w-full h-full p-2 flex items-center justify-center">
-            <Image
-              src={content}
-              alt="Card image"
-              width={80}
-              height={80}
-              className="object-contain"
-            />
-          </div>
+          <Image
+            src={content}
+            alt="Card image"
+            className="object-cover"
+            objectFit="contain"
+            width={180}
+            height={180}
+          />
         </div>
       </div>
     </button>
-  )
+  );
 }
